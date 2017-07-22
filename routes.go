@@ -3,7 +3,7 @@ package main
 import (
 	"net/http"
 
-	"github.com/pbdekeijzer/restAPI/handlers"
+	"./handlers"
 )
 
 type Route struct {
@@ -18,7 +18,7 @@ type Routes []Route
 var routes = Routes{
 	//IndexSite
 	Route{"Index", "GET", "/", handlers.Index},
-
+	Route("MoreIndex", "GET", "/yes", handlers.MoreIndex),
 	//Issue routes
 	// Route{"GetAllIssues", "GET", "/issues", GetAllIssues},
 	// Route{"GetIssue", "GET", "issue/{id}", GetIssue},
