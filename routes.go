@@ -3,7 +3,7 @@ package main
 import (
 	"net/http"
 
-	"./handlers"
+	"github.com/pbdekeijzer/GoLangPractice/handlers"
 )
 
 type Route struct {
@@ -18,7 +18,6 @@ type Routes []Route
 var routes = Routes{
 	//IndexSite
 	Route{"Index", "GET", "/", handlers.Index},
-	Route("MoreIndex", "GET", "/yes", handlers.MoreIndex),
 	//Issue routes
 	// Route{"GetAllIssues", "GET", "/issues", GetAllIssues},
 	// Route{"GetIssue", "GET", "issue/{id}", GetIssue},
@@ -27,7 +26,7 @@ var routes = Routes{
 	// Route{"DeleteIssue", "DELETE", "issue/{id}", DeleteIssue},
 
 	// //Comment routes
-	// Route{"CreateComment", "POST", "issue/{id}/comment", CreateComment},
+	// Route{"CreateComment", "POST", "issue/{cid}/comment", CreateComment},
 	// Route{"GetAllComments", "GET", "/comments", GetAllComments},
-	// Route{"GetIssueComments", "GET", "issue/{id}/comments", GetIssueComments},
+	// Route{"GetIssueComments", "GET", "issue/{cid}/comments", GetIssueComments},
 }

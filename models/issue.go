@@ -11,4 +11,4 @@ type Issue struct {
 	Comments     *[]Comment `json:"comments"`
 }
 
-type Issues *[]Issues
+type Issues []Issue
