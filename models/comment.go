@@ -1,9 +1,9 @@
 package models
 
 type Comment struct {
-	CommentID uint   `json:"cid"`
+	CommentID int    `json:"cid"`
 	Content   string `json:"content"`
-	OnIssue   *Issue `json"issue"`
+	OnIssue   string `json"issue"`
 }
 
 type Comments []Comment

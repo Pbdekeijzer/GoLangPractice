@@ -3,14 +3,16 @@ package main
 import (
 	"log"
 	"net/http"
-)
 
-// func Index(w http.ResponseWriter, r *http.Request) {
-// 	fmt.Fprintf(w, "Helloossso, %q", html.EscapeString(r.URL.Path))
-// }
+	"github.com/urfave/negroni"
+)
 
 func main() {
 
 	router := NewRouter()
-	log.Fatal(http.ListenAndServe(":8080", router))
+
+	n := negroni.Classic()
+	n.UseHandler(router)
+
+	log.Fatal(http.ListenAndServe(":8080", n))
 }
