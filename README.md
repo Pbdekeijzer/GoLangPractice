@@ -5,7 +5,7 @@ The api is fully functional when using postman.
 To run this solution:
 from ../src/
 run the command:
-- go get github.com/Pbdekeijzer/Json--RestAPI
+- go get github.com/Pbdekeijzer/Json-RestAPI
 
 After the packages are finished cloning, in
 ..src/github.com/Pbdekeijzer/Json-RestAPI
