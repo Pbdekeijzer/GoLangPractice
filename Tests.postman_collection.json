@@ -130,8 +130,8 @@
 		{
 			"name": "http://localhost:8080/issue/1",
 			"request": {
-				"url": "http://localhost:8080/issue/2",
-				"method": "PUT",
+				"url": "http://localhost:8080/issue/1",
+				"method": "PATCH",
 				"header": [
 					{
 						"key": "Content-Type",
@@ -141,7 +141,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"id\": 2,\r\n    \"issuecontent\": \"Test put coeeemment\",\r\n    \"status\": \"Doneee\",\r\n    \"comments\": null\r\n}\r\n\r\n"
+					"raw": "{\r\n    \"id\": 2,\r\n    \"issuecontent\": \"Test put coeeemmment\",\r\n    \"status\": \"Doneee\",\r\n    \"comments\": null\r\n}\r\n\r\n"
 				},
 				"description": "Update issue"
 			},
@@ -150,7 +150,7 @@
 		{
 			"name": "http://localhost:8080/issue/1",
 			"request": {
-				"url": "http://localhost:8080/issue/2",
+				"url": "http://localhost:8080/issue/1",
 				"method": "DELETE",
 				"header": [
 					{

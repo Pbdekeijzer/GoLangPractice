@@ -24,7 +24,7 @@ var routes = Routes{
 	Route{"GetAllIssues", "GET", "/issues", handlers.GetAllIssuesHandler},
 	Route{"GetIssue", "GET", "/issue/{id}", handlers.GetIssueHandler},
 	Route{"PostIssue", "POST", "/issue", handlers.PostIssueHandler},
-	Route{"PutIssue", "PUT", "/issue/{id}", handlers.PutIssueHandler},
+	Route{"PatchIssue", "PATCH", "/issue/{id}", handlers.PatchIssueHandler},
 	Route{"DeleteIssue", "DELETE", "/issue/{id}", handlers.DeleteIssueHandler},
 
 	// //Comment routes

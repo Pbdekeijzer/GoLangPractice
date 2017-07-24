@@ -82,11 +82,11 @@ func DeleteIssueHandler(w http.ResponseWriter, r *http.Request) {
 
 }
 
-// PutIssueHandler asks for an existing issue
-// It checks the ID and replaces the object in the issues slice with the new object
+// PatchIssueHandler asks for an existing issue
+// It checks the ID and replaces the Status field and the StatusContent field with the new values
 // return 204 if function was succesful
 // TO DO: - Implements this more elegantly without the need for an issue
-func PutIssueHandler(w http.ResponseWriter, r *http.Request) {
+func PatchIssueHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id, err := strconv.Atoi(vars["id"])
 

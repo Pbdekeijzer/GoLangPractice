@@ -44,7 +44,8 @@ func DeleteIssue(id int) error {
 func EditIssue(issue models.Issue, sid int) error {
 	for i := 0; i < len(issues); i++ {
 		if issues[i].ID == sid {
-			issues[i] = issue
+			issues[i].IssueContent = issue.IssueContent
+			issues[i].Status = issue.Status
 			return nil
 		}
 	}
