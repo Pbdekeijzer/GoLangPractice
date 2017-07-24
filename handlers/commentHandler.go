@@ -12,7 +12,7 @@ import (
 	"github.com/pbdekeijzer/GoLangPractice/models"
 )
 
-// GetAllComments returns all comments in json format
+// GetAllCommentsHandler returns all comments in json format
 func GetAllCommentsHandler(w http.ResponseWriter, r *http.Request) {
 	comments, err := json.MarshalIndent(datastorage.GetAllComments(), "", "\t")
 
@@ -24,7 +24,7 @@ func GetAllCommentsHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write(comments)
 }
 
-// GetIssueComments returns the comments of an issue in json format
+// GetIssueCommentsHandler returns the comments of an issue in json format
 // If the issue doesn't exist, comments = [], with len 2
 // If len < 3, return 404, else return the comments or null if the issue has no comments
 func GetIssueCommentsHandler(w http.ResponseWriter, r *http.Request) {
@@ -45,7 +45,7 @@ func GetIssueCommentsHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// PostComment unmarshals json body to a models.Comment and adds the comment to the datastorage
+// PostCommentHandler unmarshals json body to a models.Comment and adds the comment to the datastorage
 func PostCommentHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	var comment models.Comment

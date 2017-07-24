@@ -62,7 +62,7 @@ func GetIssue(id int) models.Issue {
 			return issues[i]
 		}
 	}
-	//else return empty Issue
+	// else return empty Issue
 	return models.Issue{}
 }
 
@@ -70,10 +70,11 @@ func GetIssue(id int) models.Issue {
 var comments models.Comments
 var cid int
 
-//CreateComment and appends the comment to the comments of the corresponding issue
+// CreateComment and appends the comment to the comments of the corresponding issue
+// Auto increment the comment id and transform the given id into the incremented one
 func CreateComment(comment models.Comment, sid int) models.Comment {
 
-	cid++ //auto increments the id
+	cid++
 	comment.CommentID = cid
 
 	for i := 0; i < len(issues); i++ {
@@ -87,7 +88,7 @@ func CreateComment(comment models.Comment, sid int) models.Comment {
 	return comment
 }
 
-//deleteComment deletes the comments of an issue, when that issue is deleted
+// DeleteComment deletes the comments of an issue, when that issue is deleted
 func DeleteComment(cid int) error {
 	for i := 0; i < len(comments); i++ {
 		if comments[i].CommentID == cid {
@@ -98,11 +99,12 @@ func DeleteComment(cid int) error {
 	return fmt.Errorf("There is no comment with id %d to delete", cid)
 }
 
-//GetAllComments returns all comments
+// GetAllComments returns all comments
 func GetAllComments() models.Comments {
 	return comments
 }
 
+// GetCommentsByIssue returns all comments of an issue in []models.Comment
 func GetCommentsByIssue(id int) []models.Comment {
 	if len(issues) != 0 {
 		for i := 0; i < len(issues); i++ {

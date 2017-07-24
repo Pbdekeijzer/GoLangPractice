@@ -13,7 +13,7 @@ import (
 	"github.com/pbdekeijzer/GoLangPractice/models"
 )
 
-// PostIssue unmarshals json body to models.Issue and adds the issue to the datastorage
+// PostIssueHandler unmarshals json body to models.Issue and adds the issue to the datastorage
 func PostIssueHandler(w http.ResponseWriter, r *http.Request) {
 	var issue models.Issue
 	rBody, _ := ioutil.ReadAll(r.Body)
@@ -27,7 +27,7 @@ func PostIssueHandler(w http.ResponseWriter, r *http.Request) {
 	datastorage.CreateIssue(issue)
 }
 
-// GetAllIssues returns json containing all issues
+// GetAllIssuesHandler returns json containing all issues
 func GetAllIssuesHandler(w http.ResponseWriter, r *http.Request) {
 	issues, err := json.MarshalIndent(datastorage.GetAllIssues(), "", "\t")
 
@@ -39,22 +39,30 @@ func GetAllIssuesHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write(issues)
 }
 
-// GetIssue returns json containing a single issue
+// GetIssueHandler returns json containing a single issue
 func GetIssueHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id, err := strconv.Atoi(vars["id"])
-
-	issue, err := json.MarshalIndent(datastorage.GetIssue(id), "", "\t")
 
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(issue)
+	issue := datastorage.GetIssue(id)
+	if issue.ID == 0 {
+		w.WriteHeader(http.StatusNotFound)
+	} else {
+		newissue, error := json.MarshalIndent(issue, "", "\t")
+		if error != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+		w.Header().Set("Content-Type", "application/json")
+		w.Write(newissue)
+	}
+
 }
 
-// DeleteIssue deletes an issue, based on the is in the uri
+// DeleteIssueHandler deletes an issue, based on the is in the uri
 func DeleteIssueHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id, err := strconv.Atoi(vars["id"])
@@ -67,7 +75,7 @@ func DeleteIssueHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNoContent)
 }
 
-// PatchIssue asks for an existing issue
+// PatchIssueHandler asks for an existing issue
 // It checks the ID and modifies the rest of the data
 // return 200 if function was succesful (patch apparently doesn't do this automatically)
 // TO DO: Implements this more elegantly without the need for an issue
