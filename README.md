@@ -18,6 +18,8 @@ from ..src/github.com/Pbdekeijzer/Json-RestAPI
 run the command:
 - go test -v ./...
 
+Postman tests can be found in Tests.postman_collection.json
+
 # To do:
 - Implement forms for posts
 - Implement authentication
