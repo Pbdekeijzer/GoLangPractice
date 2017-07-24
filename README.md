@@ -7,7 +7,7 @@ from ../src/
 run the command:
 - go get github.com/Pbdekeijzer/Json--RestAPI
 
-After the packages are finished cloning, install, in
+After the packages are finished cloning, in
 ..src/github.com/Pbdekeijzer/Json-RestAPI
 run these commands:
 - go build
