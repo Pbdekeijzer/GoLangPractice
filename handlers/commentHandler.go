@@ -12,7 +12,8 @@ import (
 	"github.com/pbdekeijzer/GoLangPractice/models"
 )
 
-func GetAllComments(w http.ResponseWriter, r *http.Request) {
+// GetAllComments returns all comments in json format
+func GetAllCommentsHandler(w http.ResponseWriter, r *http.Request) {
 	comments, err := json.MarshalIndent(datastorage.GetAllComments(), "", "\t")
 
 	if err != nil {
@@ -23,7 +24,10 @@ func GetAllComments(w http.ResponseWriter, r *http.Request) {
 	w.Write(comments)
 }
 
-func GetIssueComments(w http.ResponseWriter, r *http.Request) {
+// GetIssueComments returns the comments of an issue in json format
+// If the issue doesn't exist, comments = [], with len 2
+// If len < 3, return 404, else return the comments or null if the issue has no comments
+func GetIssueCommentsHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id, err := strconv.Atoi(vars["id"])
 
@@ -33,11 +37,16 @@ func GetIssueComments(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(comments)
+	if len(comments) < 3 {
+		w.WriteHeader(http.StatusNotFound)
+	} else {
+		w.Header().Set("Content-Type", "application/json")
+		w.Write(comments)
+	}
 }
 
-func PostComment(w http.ResponseWriter, r *http.Request) {
+// PostComment unmarshals json body to a models.Comment and adds the comment to the datastorage
+func PostCommentHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	var comment models.Comment
 
@@ -51,5 +60,4 @@ func PostComment(w http.ResponseWriter, r *http.Request) {
 	}
 
 	datastorage.CreateComment(comment, id)
-    
 }

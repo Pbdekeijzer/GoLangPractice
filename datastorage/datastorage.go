@@ -3,41 +3,44 @@ package datastorage
 import (
 	"fmt"
 
-	"encoding/json"
-
 	"github.com/pbdekeijzer/GoLangPractice/models"
 )
 
-//Issue
+// issues is where the data for all the issues is stored
+// sid is used for auto incrementing the id
 var issues models.Issues
 var sid int
 
-func CreateIssue(issue models.Issue) {
+// CreateIssue creates an issue and appends the issue to the issues slice
+// Auto increments the ID, so any id gives is transformed into the incremented id given by this function
+func CreateIssue(issue models.Issue) models.Issue {
 	sid++
 	issue.ID = sid
 	issues = append(issues, issue)
+	return issue
 }
 
+// DeleteIssue deletes an issue from the issues slice
+// Also deletes all the comments the issue had
 func DeleteIssue(id int) error {
 
 	for i, s := range issues {
 		if s.ID == id {
 
-			//delete all the comments from the issue
 			if len(issues[i].Comments) != 0 {
 				for _, comment := range issues[i].Comments {
-					deleteComment(comment.CommentID)
+					DeleteComment(comment.CommentID)
 				}
 			}
-			//delete the issue itselfs
+
 			issues = append(issues[:i], issues[i+1:]...)
 			return nil
 		}
 	}
-	fmt.Println("test")
 	return fmt.Errorf("There is no issue with id %d to delete", id)
 }
 
+// EditIssue simply modifies an existing issue, based on the issue.ID
 func EditIssue(issue models.Issue) error {
 	for i := 0; i < len(issues); i++ {
 		if issues[i].ID == issue.ID {
@@ -47,10 +50,12 @@ func EditIssue(issue models.Issue) error {
 	return fmt.Errorf("Not able to edit issue with id: %d", issue.ID)
 }
 
+// GetAllIssues returns a slice of the struct models.Issue
 func GetAllIssues() models.Issues {
 	return issues
 }
 
+// GetIssue returns a single struct of models.Issue
 func GetIssue(id int) models.Issue {
 	for i := 0; i < len(issues); i++ {
 		if issues[i].ID == id {
@@ -66,8 +71,9 @@ var comments models.Comments
 var cid int
 
 //CreateComment and appends the comment to the comments of the corresponding issue
-func CreateComment(comment models.Comment, sid int) {
-	cid++
+func CreateComment(comment models.Comment, sid int) models.Comment {
+
+	cid++ //auto increments the id
 	comment.CommentID = cid
 
 	for i := 0; i < len(issues); i++ {
@@ -75,13 +81,14 @@ func CreateComment(comment models.Comment, sid int) {
 			issues[i].Comments = append(issues[i].Comments, comment)
 			comment.OnIssue = issues[i].IssueContent
 			comments = append(comments, comment)
-			return
+			return comment
 		}
 	}
+	return comment
 }
 
 //deleteComment deletes the comments of an issue, when that issue is deleted
-func deleteComment(cid int) error {
+func DeleteComment(cid int) error {
 	for i := 0; i < len(comments); i++ {
 		if comments[i].CommentID == cid {
 			comments = append(comments[:i], comments[i+1:]...)
@@ -107,43 +114,17 @@ func GetCommentsByIssue(id int) []models.Comment {
 	return []models.Comment{}
 }
 
-//add some test data
+// Initialize sample data
 func init() {
-	//add issues to the issue slice
+
+	// issues
 	CreateIssue(models.Issue{IssueContent: "Test create and edit functions", Status: "Pending"})
 	CreateIssue(models.Issue{IssueContent: "Retreive data from datastorage", Status: "Pending"})
 	CreateIssue(models.Issue{IssueContent: "Add Authentication", Status: "ToDo"})
 	CreateIssue(models.Issue{IssueContent: "Add Docker", Status: "ToDo"})
 
-	//test creation of comment
+	// comments
 	CreateComment(models.Comment{Content: "This api needs some work"}, 4)
 	CreateComment(models.Comment{Content: "This api is not public"}, 3)
-	fmt.Println(issues[3].Comments[0].Content)
-
-	//test deletion of issue
-	fmt.Println("Current comments are:")
-	for _, element := range GetAllComments() {
-		fmt.Println(element)
-	}
-
-	issue := models.Issue{IssueContent: "TEST"}
-	b, err := json.Marshal(issue)
-
-	if err != nil {
-		fmt.Println("sucks")
-	}
-	fmt.Println(string(b))
-
-	DeleteIssue(4)
-	fmt.Println("Comments after delete are:")
-	for _, element := range GetAllComments() {
-		fmt.Println(element)
-	}
-
-	fmt.Println(GetCommentsByIssue(3))
-
-	//test edit issue: Test create and edit functions -> Succesfully tested create and edit functions
-	EditIssue(models.Issue{ID: 1, IssueContent: "Succesfully tested create and edit functions", Status: "Completed"})
-	fmt.Println(issues[0].IssueContent)
-
+	CreateComment(models.Comment{Content: "No authentication!? UNSAFE"}, 3)
 }

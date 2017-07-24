@@ -18,17 +18,17 @@ type Routes []Route
 var routes = Routes{
 
 	//Index
-	Route{"Index", "GET", "/", handlers.Index},
+	Route{"Index", "GET", "/", handlers.IndexHandler},
 
 	//Issue routes
-	Route{"GetAllIssues", "GET", "/issues", handlers.GetAllIssues},
-	Route{"GetIssue", "GET", "/issue/{id}", handlers.GetIssue},
-	Route{"PostIssue", "POST", "/issue", handlers.PostIssue},
-	Route{"PatchIssue", "PATCH", "/issue/{id}", handlers.PatchIssue},
-	Route{"DeleteIssue", "DELETE", "/issue/{id}", handlers.DeleteIssue},
+	Route{"GetAllIssues", "GET", "/issues", handlers.GetAllIssuesHandler},
+	Route{"GetIssue", "GET", "/issue/{id}", handlers.GetIssueHandler},
+	Route{"PostIssue", "POST", "/issue", handlers.PostIssueHandler},
+	Route{"PatchIssue", "PATCH", "/issue/{id}", handlers.PatchIssueHandler},
+	Route{"DeleteIssue", "DELETE", "/issue/{id}", handlers.DeleteIssueHandler},
 
 	// //Comment routes
-	Route{"PostComment", "POST", "/issue/{id}/comment", handlers.PostComment},
-	Route{"GetAllComments", "GET", "/comments", handlers.GetAllComments},
-	Route{"GetIssueComments", "GET", "/issue/{id}/comments", handlers.GetIssueComments},
+	Route{"PostComment", "POST", "/issue/{id}/comment", handlers.PostCommentHandler},
+	Route{"GetAllComments", "GET", "/comments", handlers.GetAllCommentsHandler},
+	Route{"GetIssueComments", "GET", "/issue/{id}/comments", handlers.GetIssueCommentsHandler},
 }

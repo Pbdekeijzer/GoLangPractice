@@ -13,7 +13,8 @@ import (
 	"github.com/pbdekeijzer/GoLangPractice/models"
 )
 
-func PostIssue(w http.ResponseWriter, r *http.Request) {
+// PostIssue unmarshals json body to models.Issue and adds the issue to the datastorage
+func PostIssueHandler(w http.ResponseWriter, r *http.Request) {
 	var issue models.Issue
 	rBody, _ := ioutil.ReadAll(r.Body)
 	err := json.Unmarshal(rBody, &issue)
@@ -23,16 +24,11 @@ func PostIssue(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	//add an issue to the data storage
 	datastorage.CreateIssue(issue)
-
-	//just for test
-	newissue, err := json.Marshal(issue)
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(newissue)
 }
 
-func GetAllIssues(w http.ResponseWriter, r *http.Request) {
+// GetAllIssues returns json containing all issues
+func GetAllIssuesHandler(w http.ResponseWriter, r *http.Request) {
 	issues, err := json.MarshalIndent(datastorage.GetAllIssues(), "", "\t")
 
 	if err != nil {
@@ -43,7 +39,8 @@ func GetAllIssues(w http.ResponseWriter, r *http.Request) {
 	w.Write(issues)
 }
 
-func GetIssue(w http.ResponseWriter, r *http.Request) {
+// GetIssue returns json containing a single issue
+func GetIssueHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id, err := strconv.Atoi(vars["id"])
 
@@ -57,7 +54,8 @@ func GetIssue(w http.ResponseWriter, r *http.Request) {
 	w.Write(issue)
 }
 
-func DeleteIssue(w http.ResponseWriter, r *http.Request) {
+// DeleteIssue deletes an issue, based on the is in the uri
+func DeleteIssueHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id, err := strconv.Atoi(vars["id"])
 
@@ -69,7 +67,11 @@ func DeleteIssue(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNoContent)
 }
 
-func PatchIssue(w http.ResponseWriter, r *http.Request) {
+// PatchIssue asks for an existing issue
+// It checks the ID and modifies the rest of the data
+// return 200 if function was succesful (patch apparently doesn't do this automatically)
+// TO DO: Implements this more elegantly without the need for an issue
+func PatchIssueHandler(w http.ResponseWriter, r *http.Request) {
 	var issue models.Issue
 
 	rBody, _ := ioutil.ReadAll(r.Body)
@@ -81,6 +83,5 @@ func PatchIssue(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 
-	//apparently doesn't automatically return 200 on patch
 	w.WriteHeader(http.StatusOK)
 }
