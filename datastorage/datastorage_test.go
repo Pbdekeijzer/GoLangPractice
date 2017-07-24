@@ -18,8 +18,8 @@ func setUpIssue() models.Issue {
 }
 
 // setup comment object
-func setUpComment() models.Comment {
-	comment := models.Comment{Content: "This is the content", OnIssue: "Test issue creation"}
+func setUpComment() (models.Comment, error) {
+	comment := models.Comment{Content: "This is the content", OnIssue: id}
 	return CreateComment(comment, id)
 }
 
@@ -68,8 +68,12 @@ func TestGetIssue(t *testing.T) {
 }
 
 func TestCreateComment(t *testing.T) {
-	comment := setUpComment()
+	comment, err := setUpComment()
 	fail := true
+
+	if err != nil {
+
+	}
 	comments := GetAllComments()
 
 	for _, com := range comments {
@@ -83,17 +87,18 @@ func TestCreateComment(t *testing.T) {
 }
 
 func TestDeleteComment(t *testing.T) {
-	comment := setUpComment()
+	comment, err := setUpComment()
 	fail := false
+	if err != nil {
+		issue := GetIssue(1)
+		DeleteIssue(issue.ID)
 
-	issue := GetIssue(1)
-	DeleteIssue(issue.ID)
+		comments := GetAllComments()
 
-	comments := GetAllComments()
-
-	for _, com := range comments {
-		if com.CommentID == comment.CommentID {
-			fail = true
+		for _, com := range comments {
+			if com.CommentID == comment.CommentID {
+				fail = true
+			}
 		}
 	}
 

@@ -25,19 +25,20 @@ func TestGetAllCommentsHandler(t *testing.T) {
 	{
 		"cid": 1,
 		"content": "This api needs some work",
-		"OnIssue": "Add Docker"
+		"issue": 3
 	},
 	{
 		"cid": 2,
 		"content": "This api is not public",
-		"OnIssue": "Add Authentication"
+		"issue": 3
 	},
 	{
 		"cid": 3,
 		"content": "No authentication!? UNSAFE",
-		"OnIssue": "Add Authentication"
+		"issue": 4
 	}
 ]`
+
 	if responseRecorder.Body.String() != expected {
 		t.Errorf("handler returned unexpected body: got %v, want %v", responseRecorder.Body.String(), expected)
 	}

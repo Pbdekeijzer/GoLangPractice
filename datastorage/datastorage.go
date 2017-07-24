@@ -81,8 +81,8 @@ func CreateComment(comment models.Comment, sid int) (models.Comment, error) {
 
 	for i := 0; i < len(issues); i++ {
 		if issues[i].ID == sid {
+			comment.OnIssue = issues[i].ID
 			issues[i].Comments = append(issues[i].Comments, comment)
-			comment.OnIssue = issues[i].IssueContent
 			comments = append(comments, comment)
 			return comment, nil
 		}
@@ -128,7 +128,7 @@ func init() {
 	CreateIssue(models.Issue{IssueContent: "Add Docker", Status: "ToDo"})
 
 	// comments
-	CreateComment(models.Comment{Content: "This api needs some work"}, 4)
+	CreateComment(models.Comment{Content: "This api needs some work"}, 3)
 	CreateComment(models.Comment{Content: "This api is not public"}, 3)
-	CreateComment(models.Comment{Content: "No authentication!? UNSAFE"}, 3)
+	CreateComment(models.Comment{Content: "No authentication!? UNSAFE"}, 4)
 }

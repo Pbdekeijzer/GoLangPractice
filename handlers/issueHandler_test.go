@@ -47,14 +47,14 @@ func TestGetAllIssuesHandler(t *testing.T) {
 		"status": "ToDo",
 		"comments": [
 			{
-				"cid": 2,
-				"content": "This api is not public",
-				"OnIssue": ""
+				"cid": 1,
+				"content": "This api needs some work",
+				"issue": 3
 			},
 			{
-				"cid": 3,
-				"content": "No authentication!? UNSAFE",
-				"OnIssue": ""
+				"cid": 2,
+				"content": "This api is not public",
+				"issue": 3
 			}
 		]
 	},
@@ -64,13 +64,14 @@ func TestGetAllIssuesHandler(t *testing.T) {
 		"status": "ToDo",
 		"comments": [
 			{
-				"cid": 1,
-				"content": "This api needs some work",
-				"OnIssue": ""
+				"cid": 3,
+				"content": "No authentication!? UNSAFE",
+				"issue": 4
 			}
 		]
 	}
 ]`
+
 	if responseRecorder.Body.String() != expected {
 		t.Errorf("handler returned unexpected body: got %v, want %v", responseRecorder.Body.String(), expected)
 	}
