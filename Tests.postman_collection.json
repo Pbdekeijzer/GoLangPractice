@@ -1,0 +1,171 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Tests",
+		"_postman_id": "0f98174f-ede6-2ce0-034f-95a7bffd2283",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/issue",
+			"request": {
+				"url": "http://localhost:8080/issue",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 1,\r\n    \"issuecontent\": \"Test post issue\",\r\n    \"status\": \"Pending\",\r\n    \"comments\": null\r\n}\r\n"
+				},
+				"description": "Create new issue"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/issue/1/comment",
+			"request": {
+				"url": "http://localhost:8080/issue/1/comment",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "   {\r\n        \"content\": \"Test post comment\",\r\n        \"OnIssue\": \"Add Authentication\"\r\n    }\r\n\r\n"
+				},
+				"description": "Create new comment"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/issue/1",
+			"request": {
+				"url": "http://localhost:8080/issue/1",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 1,\n    \"issuecontent\": \"Test create and edit functions\",\n    \"status\": \"jajaaj\",\n    \"comments\": null\n}"
+				},
+				"description": "Get one issue"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/issue/1/comments",
+			"request": {
+				"url": "http://localhost:8080/issue/1/comments",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 2,\n    \"issuecontent\": \"Test issue\",\n    \"status\": \"testert\",\n    \"comments\": null\n}"
+				},
+				"description": "Get all comments by issue"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/comments",
+			"request": {
+				"url": "http://localhost:8080/comments",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 2,\n    \"issuecontent\": \"Test issue\",\n    \"status\": \"testert\",\n    \"comments\": null\n}"
+				},
+				"description": "Get all comments"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/issues",
+			"request": {
+				"url": "http://localhost:8080/issues",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 2,\n    \"issuecontent\": \"Test issue\",\n    \"status\": \"testert\",\n    \"comments\": null\n}"
+				},
+				"description": "Get all issues"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/issue/1",
+			"request": {
+				"url": "http://localhost:8080/issue/2",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 2,\r\n    \"issuecontent\": \"Test put coeeemment\",\r\n    \"status\": \"Doneee\",\r\n    \"comments\": null\r\n}\r\n\r\n"
+				},
+				"description": "Update issue"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/issue/1",
+			"request": {
+				"url": "http://localhost:8080/issue/2",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": "Delete issue"
+			},
+			"response": []
+		}
+	]
+}

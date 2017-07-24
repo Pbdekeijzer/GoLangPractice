@@ -73,7 +73,7 @@ var cid int
 
 // CreateComment and appends the comment to the comments of the corresponding issue
 // Auto increment the comment id and transform the given id into the incremented one
-func CreateComment(comment models.Comment, sid int) models.Comment {
+func CreateComment(comment models.Comment, sid int) (models.Comment, error) {
 
 	cid++
 	comment.CommentID = cid
@@ -83,10 +83,10 @@ func CreateComment(comment models.Comment, sid int) models.Comment {
 			issues[i].Comments = append(issues[i].Comments, comment)
 			comment.OnIssue = issues[i].IssueContent
 			comments = append(comments, comment)
-			return comment
+			return comment, nil
 		}
 	}
-	return comment
+	return comment, fmt.Errorf("There is no issue with the corresponding id")
 }
 
 // DeleteComment deletes the comments of an issue, when that issue is deleted

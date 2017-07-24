@@ -61,7 +61,11 @@ func PostCommentHandler(w http.ResponseWriter, r *http.Request) {
 
 	r.Body.Close()
 
-	datastorage.CreateComment(comment, id)
+	comment, err = datastorage.CreateComment(comment, id)
 
-	w.WriteHeader(http.StatusCreated)
+	if err != nil {
+		w.WriteHeader(http.StatusNotFound)
+	} else {
+		w.WriteHeader(http.StatusCreated)
+	}
 }

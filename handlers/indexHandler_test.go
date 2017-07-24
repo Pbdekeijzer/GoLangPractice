@@ -21,9 +21,6 @@ func TestIndexHandler(t *testing.T) {
 	handler.ServeHTTP(responseRecorder, req)
 
 	assert.Equal(t, http.StatusOK, responseRecorder.Code, "Code should be OK")
-	if status := responseRecorder.Code; status != http.StatusOK {
-		t.Errorf("handler returned wrong status code: got %v, want %v", status, http.StatusOK)
-	}
 
 	expected := `Welcome to the JSON restAPI!`
 

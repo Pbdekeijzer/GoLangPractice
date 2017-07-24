@@ -72,8 +72,14 @@ func DeleteIssueHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 
-	datastorage.DeleteIssue(id)
-	w.WriteHeader(http.StatusNoContent)
+	err = datastorage.DeleteIssue(id)
+
+	if err != nil {
+		w.WriteHeader(http.StatusNotFound)
+	} else {
+		w.WriteHeader(http.StatusNoContent)
+	}
+
 }
 
 // PutIssueHandler asks for an existing issue
