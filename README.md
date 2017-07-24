@@ -21,3 +21,8 @@ run the command:
 - Implement forms for posts
 - Implement authentication
 
+#Implemented external packages:
+- https://github.com/gorilla/mux
+- https://github.com/urfave/negroni
+- https://github.com/stretchr/testify
+
