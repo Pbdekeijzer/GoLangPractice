@@ -21,11 +21,11 @@ run the command:
 # Running postman tests
 Postman tests can be found in Tests.postman_collection.json
 
-# To do:
+# To do
 - Implement forms for posts
 - Implement authentication
 
-# Implemented external packages:
+# Implemented external packages
 - https://github.com/gorilla/mux
 - https://github.com/urfave/negroni
 - https://github.com/stretchr/testify
