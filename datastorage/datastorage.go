@@ -41,13 +41,14 @@ func DeleteIssue(id int) error {
 }
 
 // EditIssue simply modifies an existing issue, based on the issue.ID
-func EditIssue(issue models.Issue) error {
+func EditIssue(issue models.Issue, sid int) error {
 	for i := 0; i < len(issues); i++ {
-		if issues[i].ID == issue.ID {
+		if issues[i].ID == sid {
 			issues[i] = issue
+			return nil
 		}
 	}
-	return fmt.Errorf("Not able to edit issue with id: %d", issue.ID)
+	return fmt.Errorf("Not able to edit issue with id: %d", sid)
 }
 
 // GetAllIssues returns a slice of the struct models.Issue

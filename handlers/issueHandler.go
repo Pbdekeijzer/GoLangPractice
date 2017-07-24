@@ -25,6 +25,7 @@ func PostIssueHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	datastorage.CreateIssue(issue)
+	w.WriteHeader(http.StatusCreated)
 }
 
 // GetAllIssuesHandler returns json containing all issues
@@ -75,21 +76,34 @@ func DeleteIssueHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNoContent)
 }
 
-// PatchIssueHandler asks for an existing issue
-// It checks the ID and modifies the rest of the data
-// return 200 if function was succesful (patch apparently doesn't do this automatically)
-// TO DO: Implements this more elegantly without the need for an issue
-func PatchIssueHandler(w http.ResponseWriter, r *http.Request) {
-	var issue models.Issue
-
-	rBody, _ := ioutil.ReadAll(r.Body)
-	err := json.Unmarshal(rBody, &issue)
-
-	datastorage.EditIssue(issue)
+// PutIssueHandler asks for an existing issue
+// It checks the ID and replaces the object in the issues slice with the new object
+// return 204 if function was succesful
+// TO DO: - Implements this more elegantly without the need for an issue
+func PutIssueHandler(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id, err := strconv.Atoi(vars["id"])
 
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 
-	w.WriteHeader(http.StatusOK)
+	var issue models.Issue
+
+	rBody, _ := ioutil.ReadAll(r.Body)
+	err = json.Unmarshal(rBody, &issue)
+
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+
+	r.Body.Close()
+
+	err = datastorage.EditIssue(issue, id)
+
+	if err != nil {
+		w.WriteHeader(http.StatusNotFound)
+	} else {
+		w.WriteHeader(http.StatusNoContent)
+	}
 }

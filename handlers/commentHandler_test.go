@@ -43,28 +43,28 @@ func TestGetAllCommentsHandler(t *testing.T) {
 	}
 }
 
-// func TestGetIssueCommentsHandler(t *testing.T) {
-// 	req, err := http.NewRequest("GET", "/issue/4/comments", nil)
-// 	if err != nil {
-// 		t.Fatal(err)
-// 	}
+func TestGetIssueCommentsHandler(t *testing.T) {
+	req, err := http.NewRequest("GET", "/issue/4/comments", nil)
+	if err != nil {
+		t.Fatal(err)
+	}
 
-// 	responseRecorder := httptest.NewRecorder()
-// 	handler := http.HandlerFunc(GetIssueCommentsHandler)
+	responseRecorder := httptest.NewRecorder()
+	handler := http.HandlerFunc(GetIssueCommentsHandler)
 
-// 	handler.ServeHTTP(responseRecorder, req)
-// 	if status := responseRecorder.Code; status != http.StatusOK {
-// 		t.Errorf("handler returned wrong status code: got %v, want %v", status, http.StatusOK)
-// 	}
+	handler.ServeHTTP(responseRecorder, req)
+	if status := responseRecorder.Code; status != http.StatusOK {
+		t.Errorf("handler returned wrong status code: got %v, want %v", status, http.StatusOK)
+	}
 
-// 	expected := `[
-// 	{
-// 		"cid": 1,
-// 		"content": "This api needs some work",
-// 		"OnIssue": ""
-// 	}
-// ]`
-// 	if responseRecorder.Body.String() != expected {
-// 		t.Errorf("handler returned unexpected body: got %v, want %v", responseRecorder.Body.String(), expected)
-// 	}
-// }
+	expected := `[
+	{
+		"cid": 1,
+		"content": "This api needs some work",
+		"OnIssue": ""
+	}
+]`
+	if responseRecorder.Body.String() != expected {
+		t.Errorf("handler returned unexpected body: got %v, want %v", responseRecorder.Body.String(), expected)
+	}
+}

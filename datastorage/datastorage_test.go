@@ -42,7 +42,7 @@ func TestEditIssue(t *testing.T) {
 	issue := setUpIssue()
 
 	updatedIssue := models.Issue{ID: issue.ID, IssueContent: "Test issue creation", Status: "Done", Comments: nil}
-	EditIssue(updatedIssue)
+	EditIssue(updatedIssue, issue.ID)
 
 	newIssue := GetIssue(issue.ID)
 

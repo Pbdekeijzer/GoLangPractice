@@ -59,5 +59,9 @@ func PostCommentHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 
+	r.Body.Close()
+
 	datastorage.CreateComment(comment, id)
+
+	w.WriteHeader(http.StatusCreated)
 }
