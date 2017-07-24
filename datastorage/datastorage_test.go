@@ -6,6 +6,8 @@ import (
 	"github.com/pbdekeijzer/GoLangPractice/models"
 )
 
+var id = 1
+
 // setup issue object
 func setUpIssue() models.Issue {
 	issue := models.Issue{IssueContent: "Test issue creation", Status: "Busy", Comments: nil}
@@ -15,7 +17,7 @@ func setUpIssue() models.Issue {
 // setup comment object
 func setUpComment() models.Comment {
 	comment := models.Comment{Content: "This is the content", OnIssue: "Test issue creation"}
-	return CreateComment(comment, 1)
+	return CreateComment(comment, id)
 }
 
 func TestCreateIssue(t *testing.T) {
@@ -118,8 +120,8 @@ func TestGetAllComments(t *testing.T) {
 }
 
 func TestGetCommentsByIssue(t *testing.T) {
-	comments := GetCommentsByIssue(1)
-	issue := GetIssue(1)
+	comments := GetCommentsByIssue(id)
+	issue := GetIssue(id)
 	if len(comments) != len(issue.Comments) {
 		t.Error("The functions doesn't return the correct comments")
 	}
