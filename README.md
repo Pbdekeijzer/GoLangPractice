@@ -13,16 +13,19 @@ run these commands:
 - go build
 - Json-RestAPI.exe
 
-# Running tests
+# Running unit tests
 from ..src/github.com/Pbdekeijzer/Json-RestAPI
 run the command:
 - go test -v ./...
 
-# To do:
+# Running postman tests
+Postman tests can be found in Tests.postman_collection.json
+
+# To do
 - Implement forms for posts
 - Implement authentication
 
-# Implemented external packages:
+# Implemented external packages
 - https://github.com/gorilla/mux
 - https://github.com/urfave/negroni
 - https://github.com/stretchr/testify
