@@ -13,12 +13,12 @@ run these commands:
 - go build
 - Json-RestAPI.exe
 
-# Running tests
+# Running unit tests
 from ..src/github.com/Pbdekeijzer/Json-RestAPI
 run the command:
 - go test -v ./...
 
-
+# Running postman tests
 Postman tests can be found in Tests.postman_collection.json
 
 # To do:
