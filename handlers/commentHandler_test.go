@@ -43,26 +43,21 @@ func TestGetAllCommentsHandler(t *testing.T) {
 	}
 }
 
-//not working
-// func TestPostCommentHandler(t *testing.T) {
-// 	jsonComment := `   {
-//         "content": "Test post comment",
-//         "OnIssue": "Add Authentication"
-//     }
-// `
-
-// 	reader := strings.NewReader(jsonComment)
-// 	req, err := http.NewRequest("POST", "/issue/3/comment", reader)
-// 	if err != nil {
-// 		t.Error(err)
+// UNIT TEST NOT WORKING WITH URL PARAMETERS, MAYBE FIX LATER
+// func TestCommentIssueHandler(t *testing.T) {
+// 	comment := models.Comment{
+// 		CommentID: 1,
+// 		Content:   "Comment content",
+// 		OnIssue:   "Add Authentication",
 // 	}
 
-// 	responseRecorder := httptest.NewRecorder()
-// 	handler := http.HandlerFunc(GetIssueCommentsHandler)
+// 	jsonComment, _ := json.Marshal(comment)
 
-// 	handler.ServeHTTP(responseRecorder, req)
+// 	req := httptest.NewRequest("POST", "/issue/1/comment", bytes.NewBuffer(jsonComment))
 
-// 	if status := responseRecorder.Code; status != http.StatusCreated {
-// 		t.Errorf("Success expected: %d", responseRecorder.Code) //Uh-oh this means our test failed
-// 	}
+// 	response := httptest.NewRecorder()
+
+// 	handler := http.HandlerFunc(PostCommentHandler)
+// 	handler.ServeHTTP(response, req)
+// 	assert.Equal(t, 201, response.Code, "Response 201 is expected")
 // }

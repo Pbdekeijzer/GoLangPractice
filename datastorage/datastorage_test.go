@@ -3,7 +3,10 @@ package datastorage
 import (
 	"testing"
 
+	"fmt"
+
 	"github.com/pbdekeijzer/GoLangPractice/models"
+	"github.com/stretchr/testify/assert"
 )
 
 var id = 1
@@ -25,9 +28,8 @@ func TestCreateIssue(t *testing.T) {
 
 	newIssue := GetIssue(issue.ID)
 
-	if issue.ID != newIssue.ID {
-		t.Error("The issue returned is not the same as the initial issue")
-	}
+	assert.Equal(t, issue.ID, newIssue.ID, fmt.Sprintf("The ID should be %v", issue.ID))
+
 }
 
 func TestDeleteIssue(t *testing.T) {
@@ -35,9 +37,7 @@ func TestDeleteIssue(t *testing.T) {
 
 	DeleteIssue(issue.ID)
 
-	if GetIssue(issue.ID).IssueContent == "Test issue creation" {
-		t.Error("Not succesfully deleted the issue")
-	}
+	assert.NotEqual(t, "Test issue creation", GetIssue(issue.ID).IssueContent, fmt.Sprintf("Issue content should not be: Test issue creation"))
 }
 
 func TestEditIssue(t *testing.T) {
@@ -48,9 +48,7 @@ func TestEditIssue(t *testing.T) {
 
 	newIssue := GetIssue(issue.ID)
 
-	if newIssue.Status != "Done" {
-		t.Error("Not succesfully updated the issue")
-	}
+	assert.Equal(t, "Done", newIssue.Status, fmt.Sprintf("The issue status should be: Done"))
 }
 
 func TestGetAllIssues(t *testing.T) {
@@ -58,9 +56,7 @@ func TestGetAllIssues(t *testing.T) {
 
 	allIssues := GetAllIssues()
 
-	if len(allIssues) == 0 {
-		t.Error("The function returns an empty slice when trying to get all issues")
-	}
+	assert.NotEqual(t, 0, len(allIssues), "Should not return a slice of length 0")
 }
 
 func TestGetIssue(t *testing.T) {
@@ -68,9 +64,7 @@ func TestGetIssue(t *testing.T) {
 
 	newissue := GetIssue(issue.ID)
 
-	if newissue.ID != issue.ID {
-		t.Error("The returned ID is not the same as the created one")
-	}
+	assert.Equal(t, issue.ID, newissue.ID, fmt.Sprintf("The issue ID should be %v", issue.ID))
 }
 
 func TestCreateComment(t *testing.T) {
@@ -84,9 +78,8 @@ func TestCreateComment(t *testing.T) {
 		}
 	}
 
-	if fail == true {
-		t.Error("The comment was not created")
-	}
+	//if not false, newly created comment not found in list of comments
+	assert.Equal(t, false, fail, "fail should be false")
 }
 
 func TestDeleteComment(t *testing.T) {
@@ -104,9 +97,7 @@ func TestDeleteComment(t *testing.T) {
 		}
 	}
 
-	if fail == true {
-		t.Error("The comment was not deleted")
-	}
+	assert.Equal(t, false, fail, "Fail is false when comment is succesfully deleted")
 }
 
 func TestGetAllComments(t *testing.T) {
@@ -114,15 +105,12 @@ func TestGetAllComments(t *testing.T) {
 
 	comments := GetAllComments()
 
-	if len(comments) == 0 {
-		t.Error("The function returns an empty slice when trying to get all issues")
-	}
+	assert.NotEqual(t, 0, len(comments), "Should not return a slice of length 0")
 }
 
 func TestGetCommentsByIssue(t *testing.T) {
 	comments := GetCommentsByIssue(id)
 	issue := GetIssue(id)
-	if len(comments) != len(issue.Comments) {
-		t.Error("The functions doesn't return the correct comments")
-	}
+
+	assert.Equal(t, len(issue.Comments), len(comments), "The length of the slice should be the same")
 }

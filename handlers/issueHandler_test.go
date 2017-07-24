@@ -4,6 +4,13 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
+
+	"encoding/json"
+
+	"bytes"
+
+	"github.com/pbdekeijzer/GoLangPractice/models"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestGetAllIssuesHandler(t *testing.T) {
@@ -69,28 +76,20 @@ func TestGetAllIssuesHandler(t *testing.T) {
 	}
 }
 
-// func TestGetIssueHandler(t *testing.T) {
-// 	req, err := http.NewRequest("GET", "/issue/1", nil)
-// 	if err != nil {
-// 		t.Fatal(err)
-// 	}
+func TestPostIssueHandler(t *testing.T) {
+	issue := models.Issue{
+		ID:           1,
+		IssueContent: "Test post issue",
+		Status:       "Pending",
+		Comments:     nil,
+	}
 
-// 	responseRecorder := httptest.NewRecorder()
-// 	handler := http.HandlerFunc(GetIssueHandler)
+	jsonIssue, _ := json.Marshal(issue)
+	req := httptest.NewRequest("POST", "/issue", bytes.NewBuffer(jsonIssue))
 
-// 	handler.ServeHTTP(responseRecorder, req)
+	response := httptest.NewRecorder()
 
-// 	if status := responseRecorder.Code; status != http.StatusOK {
-// 		t.Errorf("handler returned wrong status code: got %v, want %v", status, http.StatusOK)
-// 	}
-
-// 	expected := `{
-// 	"id": 1,
-// 	"issuecontent": "Test create and edit functions",
-// 	"status": "Pending",
-// 	"comments": null
-// }`
-// 	if responseRecorder.Body.String() != expected {
-// 		t.Errorf("handler returned unexpected body: got %v, want %v", responseRecorder.Body.String(), expected)
-// 	}
-// }
+	handler := http.HandlerFunc(PostIssueHandler)
+	handler.ServeHTTP(response, req)
+	assert.Equal(t, 201, response.Code, "Response 201 is expected")
+}
