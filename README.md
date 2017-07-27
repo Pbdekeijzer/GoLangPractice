@@ -9,9 +9,14 @@ run the command:
 
 After the packages are finished cloning, in
 ..src/github.com/Pbdekeijzer/Json-RestAPI
+Run this command:
+go run server.go
+
+OR
+
 run these commands:
 - go build
-- Json-RestAPI.exe
+- run the .exe
 
 # Running unit tests
 from ..src/github.com/Pbdekeijzer/Json-RestAPI
